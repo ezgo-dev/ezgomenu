@@ -1,0 +1,55 @@
+=====[更新日誌]=====
+[2013/10/11]
+	核心更動：改用python3的configparser
+	ezgomenu_launcher.sh 指令也從python2換至python3
+[2013/07/14]
+	bug修正:
+		update.sh裏面的網路偵測是ping 127.0.0.1 改成 8.8.8.8
+		ezgomenu_launcher.sh 現在有引用 filelist
+[2013/07/13]
+	完成自動更新機制
+
+[2012/9/8]
+	1. 多重section bug修正
+	2. source_desktop_paths 改成必須和 desktop_dirs 一對一對應
+	3. 會自動替desktop_dirs指定的路徑創好所有目錄
+
+[2012/9/7]
+	1. 不會在新的desktop加入desktop = ... 這列
+	2. 支援多重section
+
+[2012/7/15]
+	menu_verEzgoX.py:
+	1.新增變數source_path_is_dest_path
+		當目標desktop資料夾即是來源desktop資料夾時，請設定成True
+
+	變數加上註解
+
+	有新版的README
+	
+
+[2012/7/12]
+	desktop_app_get.py:
+	1.新增 變數 desktop_dirs， 你可以把想要擷取屬性的desktop資料夾訂在這
+	目前是
+	desktop_dirs = [ 
+		"/usr/share/applications/",
+		"/usr/share/applications/kde4/",
+	]
+
+	menu_verEzgoX.py:
+	1.新增 變數 source_desktop_paths ， 可以把想要當作原型的desktop們來源訂在這
+	目前是
+	source_desktop_paths = [
+		"/usr/share/applications/*.desktop",
+		"/usr/share/applications/kde4/*.desktop",
+	]
+
+	2.稍微修正一下desktop_dir的定義，意思是 最後用csv刷出來的desktop們要放在哪
+	還會輸出我到底對這個資料夾做了什麼事
+
+	3.現在會略過csv中的空白列和以#開頭的列，所以可以對csv排版了
+
+	4.csv如果要改/kde4底下的desktop，csv中"desktop"那行不用再加上 "/kde4/" 了
+	這個跟舊版的格式不一樣，反正就是用desktop_app_get.py產生出來的csv當底就對了
+

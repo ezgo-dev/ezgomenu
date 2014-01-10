@@ -1,0 +1,74 @@
+=====[ezgomenu]=====
+[安裝說明]
+	執行 ezgomenu_local_install.sh
+	
+[使用說明]
+	執行 ezgomenu_launcher.sh
+	
+[功能說明]
+	針對一般使用者將應用程式名稱之前,加上應用程式的分類,以增進使用者對應用程式搜尋的效率與分類
+	例如 Libreoffice_writer 改成 辦公軟體_Writer.
+	
+	預設行為:
+		將 ezgomenu_database.csv的資訊（分類完的名稱）
+		搭配指定設定檔路徑 (1) /usr/share/applications/
+			及 (2) /usr/share/applications/kde4/
+		更改的所有應用程式顯示設定檔（*.desktop）的資訊
+
+		在 ~/.local/share/applications/ 製造出新的 應用程式顯示設定檔
+
+[程式檔案]
+	請參考ezgomenu_filelist.cfg
+
+[需要套件]
+	bash
+	python2
+	python3
+	wget
+	tar
+	zenity
+	md5sum
+	
+[更新機制]
+	執行方式:
+		自動：ezgomenu_launcher.sh就會自動執行更新
+		手動：透過 konsole / terminal 執行update.sh
+	
+	打包更新檔方式：
+		在開發版目錄下，執行make_package.sh
+		再上傳 ./ezgomenu.tar.gz ezgomenu_version ./ezgomenu_targz.md5 至 server
+		
+		另可使用./make_package.sh --clear 清除打包用檔案
+	
+	概述:
+		1.檢查: 檢查伺服器版本是否有比本機版本新
+			用wget下載 server端的version
+			跟local端的version比較 看誰比較新
+		2.下載: 將"整個"ezgomenu程式從伺服器載下來
+			用wget下載 server端的全部程式
+			下載完成時會用md5sum檢查檔案是否損毀
+		3.覆蓋: 覆蓋掉本機程式
+			將下載好的壓縮檔解壓至/tmp
+			再移動到適當的資料夾
+		
+	相關檔案:
+		server端:
+			ezgomenu.tar.gz :
+				最新公開版ezgomenu
+				注意壓縮檔內"不要"有第1層主目錄
+				解壓縮出來就該直接看到update.sh，而非目錄
+			ezgomenu_version : 最新公開版的版本號
+		local端:
+			update.sh :
+				放在/usr/share/ezgo/ezgomenu/
+				描述伺服器位置
+				做 1.檢查 2.下載 3.覆蓋
+			ezgomenu_version : 本機端的版本號
+			ezgomenu_version_compare.py : 比較版本號的程式
+
+	多伺服器:
+		ezgomenu程式會放在多個伺服器
+		伺服器位置、優先順序 描述在 ezgomenu_update.cfg 裡
+		每個伺服器裡的程式是一樣的
+		僅為在主伺服器故障時，供備用下載
+		update.sh 會依序嘗試每一個伺服器

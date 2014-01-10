@@ -1,0 +1,15 @@
+http://docs.python.org/3.3/library/configparser.html
+
+OS支援:ubuntu, fedora, opensuse
+桌面環境支援:kde, gnome, unity
+
+教師/學生  各個使用者要顯示出的選單要不同
+可能是一個管理者安裝ezgomenu, 可以管理各個使用者的選單
+
+整合版GUI
+
+這是好的起點，可以把它寫成英文，找個專案網址，例如 launchpad 或 github 或 bitbucket，方便其他人參與。
+
+.py參考ezgomenu_filelist.cfg 做事
+
+定下更新server
